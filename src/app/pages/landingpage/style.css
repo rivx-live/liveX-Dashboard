@@ -1,0 +1,213 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Open+Sans:wght@300;400;600;700&display=swap");
+
+:root {
+  --font-header: "Roboto Condensed", sans-serif;
+  --font-body: "Open Sans", sans-serif;
+  --primary: #bc9a2d;
+  --secondary: #272727;
+  --danger: #fa896b;
+  --text-color: #ffffff;
+  --bg-color: #272727;
+  --border-color: #ebf1f6;
+  --heading-color: #bc9a2d;
+  --card-bg: #1e1e1e;
+  --card-border-radius: 7px;
+  --btn-font-size: 0.875rem;
+  --btn-padding-x: 16px;
+  --btn-padding-y: 7px;
+  --card-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 2px, rgba(0, 0, 0, 0.12) 0px 12px 24px -4px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-header);
+  font-weight: 700;
+  color: var(--heading-color);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.75rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+}
+
+h5 {
+  font-size: 1rem;
+}
+
+h6 {
+  font-size: 0.875rem;
+}
+
+/* Buttons */
+.btn {
+  font-size: var(--btn-font-size);
+  padding: var(--btn-padding-y) var(--btn-padding-x);
+  border-radius: var(--card-border-radius);
+  transition: all 0.3s ease;
+  font-family: var(--font-body);
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--text-color);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: darken(var(--primary), 10%);
+  border-color: darken(var(--primary), 10%);
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  border-color: var(--secondary);
+  color: var(--text-color);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background-color: lighten(var(--secondary), 10%);
+  border-color: lighten(var(--secondary), 10%);
+}
+
+.btn-danger {
+  background-color: var(--danger);
+  border-color: var(--danger);
+  color: var(--text-color);
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+  background-color: darken(var(--danger), 10%);
+  border-color: darken(var(--danger), 10%);
+}
+
+/* Text Colors */
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.text-secondary {
+  color: var(--secondary) !important;
+}
+
+.text-danger {
+  color: var(--danger) !important;
+}
+
+.text-muted {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Cards */
+.card {
+  background-color: var(--card-bg);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-box-shadow);
+  padding: 1.5rem;
+}
+
+.card-title {
+  font-family: var(--font-header);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--heading-color);
+}
+
+.card-subtitle {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-color);
+}
+
+/* Containers */
+.container {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Icons */
+.icon-circle {
+  background-color: var(--secondary);
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  position: relative;
+}
+
+.icon-circle.circle-primary {
+  background-color: var(--primary) !important;
+}
+
+.icon-circle.circle-muted {
+  background-color: var(--text-color) !important;
+  opacity: 0.8;
+}
+
+.icon-circle:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 100%;
+  background-color: #fff;
+  display: block;
+  margin: 0 auto;
+  top: 5px;
+}
+
+/* Spacing Utilities */
+.spacer {
+  padding: 4rem 0;
+}
+
+.line-h33 {
+  line-height: 2rem;
+}
+
+/* Background */
+.bg-primary {
+  background-color: var(--primary) !important;
+}
+
+.bg-secondary {
+  background-color: var(--secondary) !important;
+}
+
+.bg-danger {
+  background-color: var(--danger) !important;
+}
+
+/* Shadows */
+.shadow-primary {
+  box-shadow: 0 4px 20px rgba(var(--primary-rgb), 0.2);
+}
+
+.shadow-secondary {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
