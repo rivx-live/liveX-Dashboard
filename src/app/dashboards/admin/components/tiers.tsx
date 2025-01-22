@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import RIVXTierTable from "./RIVXTierTable"; // Update this path if needed
-import { fetchTierData } from "@/utils/fetchTierData"; // Update this path if needed
+import { fetchTierData } from "@/shared/utils/fetchTierData"; // Update this path if needed
 
 const TiersPage = () => {
   interface TierData {

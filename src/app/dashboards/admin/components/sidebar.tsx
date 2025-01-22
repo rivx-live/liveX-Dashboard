@@ -1,89 +1,121 @@
-"use client"; // Ensure this is treated as a Client Component
+"use client";
 
 import React from "react";
 import {
-  Box,
   List,
   ListItem,
+  ListItemIcon,
   ListItemText,
-  Drawer,
-  useTheme,
+  Collapse,
 } from "@mui/material";
-import Link from "next/link";
-import Image from "next/image";
+import { useRouter } from "next/navigation";
+import PeopleIcon from "@mui/icons-material/People";
+import GroupsIcon from "@mui/icons-material/Groups";
+import BusinessIcon from "@mui/icons-material/Business";
+import EventIcon from "@mui/icons-material/Event";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import SchoolIcon from "@mui/icons-material/School";
+import AssessmentIcon from "@mui/icons-material/Assessment";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 
 const Sidebar = () => {
-  const theme = useTheme(); // Access the Material-UI theme
+  const router = useRouter();
+  const [usersOpen, setUsersOpen] = React.useState(false);
 
-  const menuItems = [
-    { name: "Dashboard", path: "/" },
-    { name: "Brands", path: "/admin/brands" },
-    { name: "Products", path: "/admin/products" },
-    { name: "Transactions", path: "/admin/transactions" },
-  ];
+  const handleUsersClick = () => {
+    setUsersOpen(!usersOpen);
+  };
 
   return (
-    <Drawer
-      variant="permanent"
-      sx={{
-        width: 240,
-        "& .MuiDrawer-paper": {
-          width: 240,
-          boxSizing: "border-box",
-          display: "flex",
-          flexDirection: "column",
-          backgroundColor: theme.palette.background.paper, // Dynamically use the theme's background
-        },
-      }}
-    >
-      {/* Logo Section */}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: 100,
-          borderBottom: `1px solid ${theme.palette.divider}`, // Use the theme's divider color
-          padding: 2,
-        }}
-      >
-        <Image
-          src="/images/logos/livex-logo.svg" // Ensure this matches the actual file location
-          alt="LiveX Logo"
-          width={160}
-          height={60}
-        />
-      </Box>
+    <div className="h-screen bg-primary-dark text-white w-64 flex flex-col">
+      <List>
+        {/* Admin Dashboard */}
+        <ListItem button onClick={() => router.push("/dashboards/admin")}>
+          <ListItemIcon>
+            <EventIcon className="text-white" />
+          </ListItemIcon>
+          <ListItemText primary="Dashboard" />
+        </ListItem>
 
-      {/* Menu Items */}
-      <List sx={{ flexGrow: 1 }}>
-        {menuItems.map((item) => (
-          <ListItem
-            button
-            component={Link}
-            href={item.path}
-            key={item.name}
-            sx={{
-              "&:hover": {
-                backgroundColor: theme.palette.action.hover, // Use hover color from theme
-              },
-              "&.Mui-selected": {
-                backgroundColor: theme.palette.action.selected, // Selected state styling
-                color: theme.palette.primary.main,
-              },
-            }}
-          >
-            <ListItemText
-              primary={item.name}
-              primaryTypographyProps={{
-                color: theme.palette.text.primary, // Use theme's text color
-                fontWeight: 500, // Optional font weight for consistency
-              }}
-            />
-          </ListItem>
-        ))}
+        {/* Users Section */}
+        <ListItem button onClick={handleUsersClick}>
+          <ListItemIcon>
+            <PeopleIcon className="text-white" />
+          </ListItemIcon>
+          <ListItemText primary="Users" />
+          {usersOpen ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+        <Collapse in={usersOpen} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItem
+              button
+              className="pl-12"
+              onClick={() => router.push("/dashboards/admin/Users/brands")}
+            >
+              <ListItemIcon>
+                <BusinessIcon className="text-white" />
+              </ListItemIcon>
+              <ListItemText primary="Brands" />
+            </ListItem>
+            <ListItem
+              button
+              className="pl-12"
+              onClick={() => router.push("/dashboards/admin/Users/influencers")}
+            >
+              <ListItemIcon>
+                <GroupsIcon className="text-white" />
+              </ListItemIcon>
+              <ListItemText primary="Influencers" />
+            </ListItem>
+          </List>
+        </Collapse>
+
+        {/* Sessions */}
+        <ListItem
+          button
+          onClick={() => router.push("/dashboards/admin/sessions")}
+        >
+          <ListItemIcon>
+            <EventIcon className="text-white" />
+          </ListItemIcon>
+          <ListItemText primary="Sessions" />
+        </ListItem>
+
+        {/* Sales */}
+        <ListItem
+          button
+          onClick={() => router.push("/dashboards/admin/sales")}
+        >
+          <ListItemIcon>
+            <ShoppingCartIcon className="text-white" />
+          </ListItemIcon>
+          <ListItemText primary="Sales" />
+        </ListItem>
+
+        {/* Certifications */}
+        <ListItem
+          button
+          onClick={() => router.push("/dashboards/admin/certifications")}
+        >
+          <ListItemIcon>
+            <SchoolIcon className="text-white" />
+          </ListItemIcon>
+          <ListItemText primary="Certifications" />
+        </ListItem>
+
+        {/* Reports */}
+        <ListItem
+          button
+          onClick={() => router.push("/dashboards/admin/reports")}
+        >
+          <ListItemIcon>
+            <AssessmentIcon className="text-white" />
+          </ListItemIcon>
+          <ListItemText primary="Reports" />
+        </ListItem>
       </List>
-    </Drawer>
+    </div>
   );
 };
 

@@ -1,0 +1,193 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* General resets */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--body-font-family);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  scroll-behavior: smooth;
+  line-height: 1.6;
+}
+
+/* Default box-sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Buttons */
+button {
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  background-color: var(--button-bg-color, var(--primary-color));
+  color: var(--button-text-color, #ffffff);
+  border: none;
+  box-shadow: var(--button-shadow, 0px 4px 10px rgba(0, 0, 0, 0.1));
+}
+
+button:hover {
+  background-color: var(--button-hover-bg-color, #d4b344);
+  color: var(--button-hover-text-color, #ffffff);
+  box-shadow: var(--button-hover-shadow, 0px 6px 15px rgba(0, 0, 0, 0.2));
+  transform: translateY(-2px);
+}
+
+button:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+  color: var(--link-color);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+a:hover {
+  color: var(--link-hover-color);
+  text-shadow: 0px 2px 5px rgba(255, 255, 255, 0.6);
+}
+
+/* Cards */
+.card {
+  background: var(--card-background-color);
+  box-shadow: var(--card-shadow);
+  border-radius: var(--card-border-radius, 1rem);
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: var(--card-hover-shadow, 0px 6px 20px rgba(0, 0, 0, 0.2));
+}
+
+/* Gradients */
+.gradient-background {
+  background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+  color: var(--gradient-text-color);
+  -webkit-background-clip: text; /* Safari and WebKit-based browsers */
+  background-clip: text; /* Modern browsers */
+  -webkit-text-fill-color: transparent; /* Ensures the gradient text is visible */
+}
+
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--header-font-family);
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+body, p, span {
+  font-family: var(--body-font-family);
+  font-size: 1rem;
+}
+
+/* Inputs */
+input,
+textarea,
+select {
+  font-family: var(--body-font-family);
+  font-size: 1rem;
+  border: 1px solid var(--text-color);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--card-background-color);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 5px var(--primary-color);
+  outline: none;
+}
+
+/* Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Toastify */
+.Toastify__toast-container {
+  z-index: 9999;
+}
+
+.Toastify__toast {
+  border-radius: 0.5rem;
+  font-family: var(--body-font-family);
+  box-shadow: var(--button-shadow);
+}
+
+.Toastify__toast--success {
+  background: var(--primary-color);
+  color: #ffffff;
+}
+
+.Toastify__toast--error {
+  background: #ff4d4f;
+  color: #ffffff;
+}
+
+/* Themes */
+:root {
+  /* Base Colors */
+  --primary-color: #bc9a2d; /* Gold */
+  --background-color: #ffffff;
+  --text-color: #2a3547;
+  --link-color: #bc9a2d;
+  --link-hover-color: #d4b344;
+  --button-bg-color: #bc9a2d;
+  --button-text-color: #ffffff;
+  --card-background-color: #f9f9f9;
+  --card-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  --card-hover-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+
+  /* Gradients */
+  --gradient-start: #bc9a2d;
+  --gradient-end: #d4b344;
+  --gradient-text-color: #ffffff;
+
+  /* Typography */
+  --header-font-family: "Oswald", Helvetica, Arial, sans-serif;
+  --body-font-family: "Open Sans", Arial, sans-serif;
+}
+
+[data-theme="dark"] {
+  --background-color: #121212;
+  --text-color: #e5e5e5;
+  --link-color: #d4b344;
+  --link-hover-color: #f3e9dc;
+  --button-bg-color: #d4b344;
+  --button-text-color: #000000;
+  --card-background-color: rgba(39, 39, 39, 0.8);
+  --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  --card-hover-shadow: 0 6px 25px rgba(0, 0, 0, 0.8);
+
+  /* Gradients */
+  --gradient-start: #54428e;
+  --gradient-end: #bc9a2d;
+  --gradient-text-color: #ffffff;
+}

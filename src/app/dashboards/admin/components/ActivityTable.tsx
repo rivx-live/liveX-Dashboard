@@ -1,6 +1,6 @@
 import React from "react";
-import BlankCard from "@/app/components/shared/BlankCard";
-import { supabase } from "@/utils/supabaseClient";
+import BlankCard from "@/app/dashboards/shared/components/BlankCard";
+import { supabase } from "@/shared/utils/supabaseClient";
 
 const ActivityTable = async () => {
   const { data: sessions } = await supabase.from("sessions").select("*");

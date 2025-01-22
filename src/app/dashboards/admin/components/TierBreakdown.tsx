@@ -1,10 +1,10 @@
 import React from "react";
-import DashboardCard from "@/app/components/shared/DashboardCard";
-import { supabase } from "@/utils/supabaseClient";
+import DashboardCard from "@/app/dashboards/shared/components/DashboardCard";
+import { supabase } from "@/shared/utils/supabaseClient";
 import {
   calculateRIVXScore,
   determineTier,
-} from "../../../../utils/rivxCalculations";
+} from "../../../../shared/utils/rivxCalculations";
 
 const TierBreakdown = async () => {
   const { data: influencers } = await supabase

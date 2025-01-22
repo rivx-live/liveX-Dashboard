@@ -1,0 +1,76 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--background-default);
+    padding: 16px;
+  }
+  
+  .card {
+    width: 100%;
+    max-width: 600px;
+    background-color: var(--background-paper);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 24px;
+    overflow: hidden;
+  }
+  
+  .progressBar {
+    width: 100%;
+    height: 8px;
+    background-color: var(--divider);
+    border-radius: 4px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  
+  .progressBarFill {
+    width: var(--progress-percentage);
+    height: 100%;
+    background-color: var(--primary);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+  }
+  
+  .button {
+    display: inline-block;
+    background-color: var(--primary);
+    color: var(--text-primary);
+    font-weight: bold;
+    text-align: center;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .button:hover {
+    transform: scale(1.05);
+  }
+  
+  .textCenter {
+    text-align: center;
+  }
+  
+  .textPrimary {
+    color: var(--primary);
+  }
+  
+  .textMuted {
+    color: var(--text-muted);
+  }
+  
+  .redirectMessage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--background-default);
+    font-size: 1.5rem;
+    color: var(--primary);
+    font-weight: bold;
+  }
+  

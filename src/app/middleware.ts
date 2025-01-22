@@ -7,65 +7,78 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY as string
 );
 
-// Define the type for user role
-interface UserRole {
-  roles: {
-    role_name: string;
-  };
-}
-
+// Middleware
 export async function middleware(req: NextRequest) {
-  try {
-    // Retrieve the user's access token from cookies
-    const token = req.cookies.get("sb-access-token")?.value;
+  const token = req.cookies.get("sb-access-token")?.value;
 
-    if (!token) {
-      console.warn("Access token not found. Redirecting to login.");
-      return NextResponse.redirect(new URL("/authentication/login", req.url));
-    }
-
-    // Validate the user token and fetch the user
-    const {
-      data: { user },
-      error: authError,
-    } = await supabase.auth.getUser(token);
-
-    if (authError || !user) {
-      console.error("Authentication Error:", authError);
-      return NextResponse.redirect(new URL("/authentication/login", req.url));
-    }
-
-    // Fetch user role from user_roles table with explicit typing
-    const { data: userRole, error: roleError } = await supabase
-      .from("user_roles")
-      .select("roles(role_name)")
-      .eq("user_id", user.id)
-      .single<UserRole>();
-
-    if (roleError || !userRole) {
-      console.error("Role Fetch Error:", roleError);
-      return NextResponse.redirect(new URL("/authentication/login", req.url));
-    }
-
-    const roleName = userRole.roles.role_name;
-
-    // Redirect based on role
-    switch (roleName) {
-      case "influencer":
-        console.info("Redirecting to influencer dashboard.");
-        return NextResponse.redirect(new URL("/influencer/dashboard", req.url));
-      case "brand":
-        console.info("Redirecting to brand dashboard.");
-        return NextResponse.redirect(new URL("/brand/dashboard", req.url));
-      case "admin":
-        console.info("Redirecting to admin dashboard.");
-        return NextResponse.redirect(new URL("/admin/dashboard", req.url));
-      default:
-        console.error("Unknown Role:", roleName);
-        return NextResponse.redirect(new URL("/authentication/login", req.url));
-    }
-  } catch (err) {
-    console.error("Middleware Error:", err);
-    return NextResponse.redirect(new URL("/authentication/login", req.url));
+  // Redirect to splash page if no token is present
+  if (!token) {
+    return redirectToSplash(req);
   }
+
+  // Validate the token and fetch the authenticated user
+  const { data: { user }, error: userError } = await supabase.auth.getUser(token);
+
+  if (userError || !user) {
+    return redirectToSplash(req);
+  }
+
+  // Fetch user role
+  const { data: role, error: roleError } = await supabase
+    .from("user_roles")
+    .select("role_name")
+    .eq("user_id", user.id)
+    .single();
+
+  if (roleError || !role) {
+    return redirectToSplash(req);
+  }
+
+  const roleName = role.role_name;
+
+  // Role-based access logic
+  if (roleName === "influencer") {
+    const { data: profile, error: profileError } = await supabase
+      .from("influencer_profiles")
+      .select("onboarding_complete")
+      .eq("user_id", user.id)
+      .single();
+
+    if (profileError || !profile) {
+      return redirectToSplash(req);
+    }
+
+    if (!profile.onboarding_complete) {
+      return NextResponse.redirect(new URL("/onboarding/step1-welcome", req.url));
+    }
+
+    if (req.nextUrl.pathname.startsWith("/onboarding") && profile.onboarding_complete) {
+      return NextResponse.redirect(new URL("/dashboards/influencer", req.url));
+    }
+  }
+
+  if (roleName === "brand" && req.nextUrl.pathname.startsWith("/dashboards/influencer")) {
+    return redirectToSplash(req);
+  }
+
+  if (roleName === "admin" && !req.nextUrl.pathname.startsWith("/dashboards/admin")) {
+    return redirectToSplash(req);
+  }
+
+  // Proceed to the requested page if access is valid
+  return NextResponse.next();
 }
+
+// Utility: Redirect to splash page
+const redirectToSplash = (req: NextRequest) => {
+  return NextResponse.redirect(new URL("/", req.url));
+};
+
+// Middleware matcher
+export const config = {
+  matcher: [
+    "/dashboards/:path*",
+    "/auth/:path*",
+    "/onboarding/:path*",
+  ],
+};
